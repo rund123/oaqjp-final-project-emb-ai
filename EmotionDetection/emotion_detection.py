@@ -14,14 +14,14 @@ def emotion_detector(text_to_analyze):
     dominant_emotion = max(emotions_dict, key=emotions_dict.get)
 
     
-    print(json.dumps({
+    return {
     'anger': emotions_dict['anger'],
     'disgust': emotions_dict['disgust'],
     'fear': emotions_dict['fear'],
     'joy': emotions_dict['joy'],
     'sadness': emotions_dict['sadness'],
     'dominant_emotion': dominant_emotion
-    }, indent=4))
+    }
     
     
     
