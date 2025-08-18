@@ -1,3 +1,10 @@
+
+"""
+server.py
+This file implements a Flask web server for the Emotion Detection application.
+It exposes an endpoint to analyze text and return the detected emotions.
+"""
+
 from flask import Flask, request, render_template
 from EmotionDetection.emotion_detection import emotion_detector
 
@@ -6,8 +13,15 @@ app = Flask ('Emotion Detector')
 @app.route('/emotionDetector')
 def detection_deplyment():
 
-    emotion_to_analyze = request.form.get('textToAnalyze')
+    """
+    Flask route handler for the /emotionDetector endpoint.
+    """
+    emotion_to_analyze = request.args.get('textToAnalyze')
     response = emotion_detector(emotion_to_analyze)
+
+    if response['dominant_emotion'] is None :
+        return "Invalid text! Please try again!."
+
     return (
         f"For the given statement, the system response is "
         f"'anger': {response['anger']}, "
@@ -20,6 +34,10 @@ def detection_deplyment():
 
 @app.route("/")
 def render_index_page():
+
+    """
+    Flask route handler for the rendering the index page.
+    """
     return render_template('index.html')
 
 if __name__ == "__main__":
